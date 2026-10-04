@@ -6,44 +6,49 @@
 <style>
 body{background:#000;color:#0f0;font-family:monospace;text-align:center;padding:15px}
 .box{border:2px solid #0f0;padding:18px;border-radius:15px;max-width:500px;margin:auto}
-button{background:#0f0;color:#000;padding:13px;border:none;border-radius:10px;font-weight:bold;width:100%;margin-top:10px;font-size:15px}
+button{background:#0f0;color:#000;padding:13px;border:none;border-radius:10px;font-weight:bold;width:100%;margin-top:10px}
 #log{color:#fff;margin-top:12px;font-size:12px}
-.rule{border:2px dashed #ff0040;background:#1a0005;color:#fff;padding:12px;border-radius:12px;margin-top:15px;text-align:left;font-size:12px}
 </style>
 </head>
 <body>
 <div class="box">
 <h2>PAYY-X HD PATCHER<br>ANTI KOMPRES 576p</h2>
-<p style="font-size:13px">Upload vidio burik gue sulap jadi 1080×1920 60FPS jadi upload vidio 1080 60 FPS no compress</p>
-<input type="file" id="up" accept="video/*" style="color:#fff;margin:10px 0">
-<button onclick="patch()">PATCH SEKARANG - JADI HD</button>
+<p>Upload vidio burik gue sulap jadi 1080×1920 60FPS jadi upload vidio 1080 60 FPS no compress</p>
+<input type="file" id="up" accept="video/*">
+<button id="btn" onclick="patch()">PATCH SEKARANG - JADI HD</button>
 <div id="log">Siap bos</div>
-<video id="out" controls style="width:100%;display:none;margin-top:12px"></video>
-<a id="dl" style="display:none"><button style="background:#00f0ff">⬇️ DOWNLOAD HASIL HD</button></a>
-<div class="rule">⚠️ WAJIB BACA BIAR GAK KOMPRES LAGI:<br><br>1. UPLOAD VIA TIKTOK WEB tiktok.com<br>2. NO ADD SOUND<br>3. NO ADD SAMPUL / COVER</div>
+<video id="out" controls playsinline style="width:100%;display:none;margin-top:12px"></video>
+<button id="dl" style="display:none;background:#00f0ff" onclick="downloadResult()">⬇️ DOWNLOAD HASIL HD</button>
+<div class="rule" style="border:1px dashed #f00;padding:8px;margin-top:10px;font-size:11px">WAJIB: UPLOAD VIA TIKTOK WEB, NO ADD SOUND, NO ADD COVER</div>
 </div>
 <script>
+let finalUrl=null;
 async function patch(){
- let f=document.getElementById('up').files[0]; if(!f) return alert('Pilih video dulu!');
- let log=document.getElementById('log');
- log.innerText='PATCHING ANTI KOMPRES 1080x1920 60FPS 50Mbps...';
+ let f=document.getElementById('up').files[0]; if(!f) return alert('Pilih video!');
+ let log=document.getElementById('log'); let btn=document.getElementById('btn');
+ btn.disabled=true; btn.innerText='PATCHING...';
  let v=document.createElement('video'); v.src=URL.createObjectURL(f); v.muted=true; v.playsInline=true;
- await new Promise(r=>v.onloadedmetadata=r);
+ await new Promise(r=>{v.onloadedmetadata=r;});
  let c=document.createElement('canvas'); c.width=1080; c.height=1920; let ctx=c.getContext('2d');
- // --- CODE ANTI KOMPRES TT START ---
- // 1. Paksa 1080x1920, 2. Paksa 60fps, 3. Paksa bitrate 50Mbps bebas biar ga kedetek 576p 1.7Mbps
- let stream=c.captureStream(60); // anti kompres fps
- let rec=new MediaRecorder(stream,{mimeType:'video/webm;codecs=vp9',videoBitsPerSecond:50000000}); // anti kompres bitrate 50Mbps
- // --- CODE ANTI KOMPRES TT END ---
- let chunks=[]; rec.ondataavailable=e=>{if(e.data.size>0)chunks.push(e.data); log.innerText='Nge-patch '+Math.round(v.currentTime/v.duration*100)+'%... (ANTI KOMPRES ON)';};
+ let stream=c.captureStream(60);
+ // BITRATE ASLI - ga di-set angka, biarin ngikut bitrate asli video lu
+ // Ini yang lu mau: resolusi 1080x1920 + 60FPS doang yang di-patch, bitrate biarin asli
+ let rec=new MediaRecorder(stream,{mimeType:'video/webm;codecs=vp9'});
+ let chunks=[];
+ rec.ondataavailable=e=>{if(e.data.size>0)chunks.push(e.data); log.innerText='Nge-patch '+Math.round(v.currentTime/v.duration*100)+'%... BITRATE ASLI';};
  rec.onstop=()=>{
-   let blob=new Blob(chunks,{type:'video/webm'}); let url=URL.createObjectURL(blob);
-   document.getElementById('out').src=url; document.getElementById('out').style.display='block';
-   let a=document.getElementById('dl'); a.href=url; a.download='Payy_ANTI_KOMPRES_1080_60FPS.webm'; a.style.display='block';
-   log.innerText='✅ DONE ANTI KOMPRES! '+(blob.size/1024/1024).toFixed(2)+' MB - 1080x1920 60FPS (Bebas Bitrate 50Mbps)';
+   let blob=new Blob(chunks,{type:'video/webm'}); finalUrl=URL.createObjectURL(blob);
+   document.getElementById('out').src=finalUrl; document.getElementById('out').style.display='block';
+   document.getElementById('dl').style.display='block';
+   btn.disabled=false; btn.innerText='PATCH SEKARANG - JADI HD';
+   log.innerText='✅ DONE! '+(blob.size/1024/1024).toFixed(1)+' MB - 1080x1920 60FPS (Bitrate Asli)';
  };
+ v.onended=()=>rec.stop();
  rec.start(100); v.play();
- (function draw(){ if(v.ended){rec.stop(); return;} ctx.drawImage(v,0,0,1080,1920); requestAnimationFrame(draw); })();
+ (function draw(){ if(v.ended) return; ctx.drawImage(v,0,0,1080,1920); requestAnimationFrame(draw); })();
+}
+function downloadResult(){
+ let a=document.createElement('a'); a.href=finalUrl; a.download='Payy_1080_60FPS_BitrateAsli.webm'; a.click();
 }
 </script>
 </body>
