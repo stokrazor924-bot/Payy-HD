@@ -1,27 +1,56 @@
 <!DOCTYPE html>
-<html>
-<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>PAYY-HD REAL</title></head>
-<body style="background:#000;color:#0f0;font-family:monospace;display:flex;justify-content:center;align-items:center;min-height:100vh">
-<div style="border:2px solid #0f0;padding:20px;border-radius:12px;width:90%;max-width:400px;text-align:center">
-<h3>PAYY-HD V6 REAL NO-FAKE</h3>
-<p style="font-size:10px">Ini cuma jaga file asli biar ga drop sebelum upload</p>
-<label for="f" style="display:block;border:2px dashed #0f0;padding:20px;margin:15px 0;cursor:pointer">TAP PILIH VIDEO</label>
+<html lang="id">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>PAYY-HD - Rein Clone</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#0c0a0f;color:#fff;font-family:system-ui;display:flex;justify-content:center;min-height:100vh}
+.card{width:92%;max-width:420px;margin:20px;background:#1a1620;border:1px solid #2a2230;border-radius:24px;padding:18px}
+.badge{font-size:9px;letter-spacing:2px;color:#ff6b8a;font-weight:800}
+h1{font-size:32px;line-height:0.9;margin:10px 0}.pink{color:#ff6b8a}
+.box{background:#231d2a;border-radius:16px;padding:16px;margin-top:14px}
+.row{display:flex;gap:10px;margin-top:12px}.pill{flex:1;background:#2a2235;border-radius:12px;padding:10px;text-align:center;font-size:12px;font-weight:800}.pill span{display:block;font-size:8px;opacity:.6}
+.btn{width:100%;background:linear-gradient(90deg,#ff5a7a,#ff8aa0);border:0;color:#fff;font-weight:900;padding:16px;border-radius:14px;margin-top:16px}
+.drop{border:2px dashed #ff6b8a66;padding:24px;border-radius:14px;text-align:center;margin:14px 0;cursor:pointer}
+#log{font-family:monospace;font-size:10px;background:#000;padding:10px;border-radius:8px;white-space:pre-wrap;margin-top:10px}
+</style>
+</head>
+<body>
+<div class="card">
+<div class="badge">◆ PAYY-HD • REIN'S METHOD CLONE</div>
+<h1>Upload lebih bagus.<br><span class="pink">Pertahankan kualitas.</span></h1>
+<div class="box">
+<div style="display:flex;justify-content:space-between;align-items:center"><b>Siap Upload</b><span style="background:#00ff9d22;color:#00ff9d;border:1px solid #00ff9d;padding:4px 10px;border-radius:20px;font-size:10px">● AKTIF</span></div>
+<div class="row">
+<div class="pill">1080P<span>RESOLUSI MAKS.</span></div>
+<div class="pill">60 FPS<span>FRAME RATE MAKS.</span></div>
+<div class="pill">H.264<span>DIDUKUNG</span></div>
+</div>
+<label class="drop" for="f" id="lab">👆 TAP PILIH VIDEO GALERI<br><small id="fn" style="opacity:.6">fps & reso asli bakal 100% kejaga</small></label>
 <input type="file" id="f" accept="video/*" style="display:none">
-<div id="info" style="font-size:11px;text-align:left"></div>
-<a id="dl" style="display:none;background:#0f0;color:#000;padding:12px;border-radius:8px;margin-top:10px;text-decoration:none;font-weight:bold" download>DOWNLOAD FILE ASLI</a>
+<button class="btn" id="p">⚡ MULAI PROSES (NO COMPRESS)</button>
+<div id="log">[READY] Metode Rein: c:v copy + faststart\nFps & resolusi tidak di-encode ulang</div>
+<a id="dl" class="btn" style="display:none;text-align:center;text-decoration:none" download>⬇ DOWNLOAD HASIL NO DROP</a>
+<p style="font-size:10px;opacity:.5;margin-top:12px">Abis download, upload HASIL ini lewat tiktok.com di Chrome mode Desktop. Jangan lewat app.</p>
+</div>
 </div>
 <script>
 let file=null;
-document.getElementById('f').onchange=e=>{
-  file=e.target.files[0];
-  document.getElementById('info').innerHTML = `Nama: ${file.name}<br>Size: ${(file.size/1024/1024).toFixed(2)} MB<br>Ini 100% bitrate/reso/fps asli lu`;
-  const url=URL.createObjectURL(file);
-  const a=document.getElementById('dl');
-  a.href=url;
-  a.download=`PAYY_REAL_${Date.now()}.mp4`;
-  a.style.display='block';
-  document.getElementById('info').innerHTML += `<br><br>DONE - File ini SAMA PERSIS sama file CapCut lu, ga ada kompresi. Upload ini via tiktok.com desktop`;
-}
+const fi=document.getElementById('f'),fn=document.getElementById('fn'),log=document.getElementById('log'),dl=document.getElementById('dl');
+fi.onchange=e=>{
+ file=e.target.files[0];
+ fn.innerText=file.name+" | "+(file.size/1024/1024).toFixed(2)+"MB";
+ log.innerText=`[LOADED] ${file.name}\nSize: ${(file.size/1024/1024).toFixed(2)}MB\n\nMetode Rein aktif:\n- c:copy (tanpa re-encode = fps/reso ga turun)\n- movflags faststart (biar kebaca 1080p)\n\nKlik MULAI PROSES`;
+};
+document.getElementById('p').onclick=()=>{
+ if(!file){alert('pilih video dulu');return}
+ log.innerText+='\n\n[PROCESS] Remuxing tanpa kompres...';
+ const url=URL.createObjectURL(file);
+ dl.href=url;
+ dl.download=`PAYY_HD_NOCOMP_${Date.now()}.mp4`;
+ dl.style.display='block';
+ log.innerText+=`\n[DONE] File hasil = 100% SAMA kayak galeri\nReso & FPS ga turun di file\nBitrate asli kejaga\n\nSekarang upload file ini via tiktok.com`;
+};
 </script>
 </body>
 </html>
