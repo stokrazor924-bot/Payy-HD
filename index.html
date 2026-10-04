@@ -3,78 +3,21 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>PAYY-HD V3 - 1080p 30/60fps ANTI FC</title>
+<title>PAYY-HD V4 REAL - LOSSLESS REMUX</title>
+<script src="https://cdn.jsdelivr.net/npm/mp4box@0.5.2/dist/mp4box.all.min.js"></script>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:monospace}
 body{background:#000;color:#0f0;display:flex;justify-content:center;align-items:center;min-height:100vh;padding:20px}
-.box{border:2px solid #0f0;box-shadow:0 0 25px #0f0;padding:25px;width:100%;max-width:420px;text-align:center;border-radius:14px;background:#050505}
-h1{font-size:18px;margin-bottom:4px;letter-spacing:1px}
-.sub{font-size:11px;color:#888;margin-bottom:15px}
-#drop{border:2px dashed #0f0;padding:25px;border-radius:10px;margin:15px 0;cursor:pointer;transition:.2s}
-#drop:active{background:#0f0;color:#000}
-input[type=file]{display:none}
-.btn{background:#0f0;color:#000;padding:13px;border:none;font-weight:900;width:100%;border-radius:8px;cursor:pointer;margin-top:12px;font-size:14px;letter-spacing:1px}
-#log{margin-top:15px;font-size:11px;text-align:left;background:#0a0a0a;padding:12px;border-radius:8px;max-height:180px;overflow:auto;white-space:pre-wrap;border:1px solid #222}
-.tag{display:inline-block;background:#0f0;color:#000;padding:2px 6px;border-radius:4px;font-size:9px;margin:2px;font-weight:bold}
+.box{border:2px solid #0f0;box-shadow:0 0 25px #0f0;padding:25px;width:100%;max-width:450px;border-radius:14px;background:#050505;text-align:center}
+.btn{background:#0f0;color:#000;padding:13px;border:none;font-weight:900;width:100%;border-radius:8px;cursor:pointer;margin-top:12px}
+#drop{border:2px dashed #0f0;padding:25px;border-radius:10px;margin:15px 0;cursor:pointer}
+#log{margin-top:15px;font-size:11px;text-align:left;background:#0a0a0a;padding:12px;border-radius:8px;max-height:200px;overflow:auto;white-space:pre-wrap}
 </style>
 </head>
 <body>
 <div class="box">
-<h1>PAYY-HD V3</h1>
-<div class="sub">1080p • 30fps / 60fps • ANTI KOMPRES • ANTI FC HITAM</div>
-<div><span class="tag">NO RE-ENCODE</span><span class="tag">NO FC</span><span class="tag">HD LOCK</span></div>
-<div id="drop"><span id="info">TAP DISINI PILIH VIDEO<br><small style="color:#666">Support MP4 1080x1920 30/60fps</small></span><input type="file" id="file" accept="video/*"></div>
-<button class="btn" id="patchBtn">PATCH JADI HD 1080p</button>
-<div id="log">[V3 SYSTEM] Ready...
-> Support 30fps & 60fps auto detect
-> No canvas = No FC hitam
-> Size tetep HD</div>
-<a id="dl" style="display:none" class="btn" download>⬇ DOWNLOAD HASIL HD</a>
-<div style="margin-top:15px;font-size:10px;color:#555">Upload via: tiktok.com (mode desktop) • Jangan via App TikTok<br>Export CapCut: 1080p, 30 atau 60fps, bitrate tinggi</div>
-</div>
-<script>
-const fileInput=document.getElementById('file'),info=document.getElementById('info'),logEl=document.getElementById('log'),dl=document.getElementById('dl'),drop=document.getElementById('drop');
-let selectedFile=null;
-function log(m,c=''){logEl.innerHTML+=`\n> ${m}`;logEl.scrollTop=logEl.scrollHeight}
-drop.onclick=()=>fileInput.click();
-fileInput.onchange=e=>{
-  selectedFile=e.target.files[0];
-  if(!selectedFile)return;
-  const size=(selectedFile.size/1024/1024).toFixed(2);
-  info.innerHTML=`${selectedFile.name}<br><small>${size} MB - siap patch</small>`;
-  log(`Loaded: ${selectedFile.name} (${size} MB)`);
-  log(`Tipe: ${selectedFile.type}`);
-};
-document.getElementById('patchBtn').onclick=async()=>{
-  if(!selectedFile){alert('Pilih video dulu njing!');return}
-  log('Proses patching header HD...');
-  try{
-    const buf=await selectedFile.arrayBuffer();
-    const blob=new Blob([buf],{type:'video/mp4'});
-    const url=URL.createObjectURL(blob);
-    // auto detect resolusi & fps tanpa re-encode
-    const v=document.createElement('video');
-    v.preload='metadata'; v.src=url;
-    v.onloadedmetadata=()=>{
-      const w=v.videoWidth, h=v.videoHeight, dur=v.duration.toFixed(1);
-      let fpsEst = dur>0? '30/60fps OK' : '60fps OK';
-      log(`Detected: ${w}x${h} | ${dur}s | ${fpsEst}`);
-      log('Patch HD bitrate flag: SUCCESS','');
-      log('Support 30fps & 60fps: YES ANTI KOMPRES','');
-      dl.href=url;
-      dl.download=`PAYY-HD_V3_${w}x${h}_${Date.now()}_HD.mp4`;
-      dl.style.display='block';
-      dl.textContent=`⬇ DOWNLOAD ${w}x${h} HD`;
-      log('DONE! Download dan upload via tiktok.com desktop mode!','');
-      log('TIPS: Upload jam 1-4 pagi, tanpa hashtag dulu biar max HD!','');
-    };
-    v.onerror=()=>{
-      // fallback kalo metadata gagal
-      dl.href=url; dl.download=`PAYY-HD_V3_${Date.now()}_HD.mp4`; dl.style.display='block';
-      log('Metadata skip, patch tetap jadi HD','');
-    }
-  }catch(e){log('ERROR: '+e.message); log('Coba video <100MB 1080p','');}
-}
-</script>
-</body>
-</html>
+<h1>PAYY-HD V4 REAL</h1>
+<p style="font-size:10px;color:#888">BITRATE ASLI • RESO ASLI • FPS LOCK • ANTI 576p</p>
+<div id="drop"><span id="info">TAP PILIH VIDEO<br><small>1080p 30/60fps - bitrate ngikut asli</small></span><input type="file" id="file" accept="video/*" style="display:none"></div>
+<button class="btn" id="btn">REMUX ANTI KOMPRES</button>
+<div id="log">[V4] Ready
